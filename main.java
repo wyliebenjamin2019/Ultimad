@@ -1,51 +1,69 @@
-public class Ultimad{
-    public static void main(String[] args){
+import java.util.Scanner;
 
-        int time = 67294091;
+public class Main {
 
-        int year = (time/(24*60*365));
+    public static Scanner sc;
+    public static int worldTime, hour, min, day, year, trammelcycle, feluccacycle;
 
-        int remainder = (time-(year*365*24*60));
+    public static void main(String[] args) {
+        time();
+        System.out.println(" ");
+        time();
+        System.out.println(" ");
+        time();
+    }
+    public static void time(){
+        original();
+        System.out.println();
+        hour = hourTime(hour);
+        min = minuteTime(min);
+        day = dayTime(day);
+        year = yearTime(year);
+        trammelcycle = tramTime(trammelcycle);
+        feluccacycle = feluTime(feluccacycle);
+        print();
+    }
+    public static void original() {
+        System.out.print("Time: ");
+        sc = new Scanner(System.in);
+        worldTime = sc.nextInt();
+    }
+    public static int hourTime(int hour) {
+        hour = ((worldTime / 60) % 24);
+        return (hour);
+    }
 
-        int day = (remainder/(24*60));
+    public static int minuteTime(int min) {
+        min = worldTime % 60;
+        return (min);
+    }
 
-        int remainder2 = (time-(year*365*24*60+(day*24*60)));
+    public static int dayTime(int day) {
+        day = ((worldTime / 1440) % 365) + 1;
+        return (day);
+    }
 
-        int hour = ((remainder2)/60);
+    public static int yearTime(int year) {
+        year = (worldTime / 1440 / 365) + 1;
+        return (year);
+    }
 
-        int minute = (time-(year*365*24*60+(day*24*60+(hour*60))));
+    public static int tramTime(int tDayOutput) {
+        tDayOutput = ((worldTime / 1440) + 1) % 9;
+        return (tDayOutput);
+    }
 
-        int worlddays = time/(60*24);
-        int trammelcycle = worlddays/9;
-        int trammelday = worlddays-(9*trammelcycle);
+    public static int feluTime(int fDayOutput) {
+        fDayOutput = ((worldTime / 1440) + 1) % 14;
+        return (fDayOutput);
+    }
 
-        int feluccacycle = worlddays/14;
-        int feluccaday = worlddays-(14*feluccacycle);
-
-        int realyear = year+1;
-        int realday = day+1;
-        int realtrammelday = trammelday+1;
-        int realfeluccaday = feluccaday+1;
-
-        System.out.println("worldTime = "+time+"\nIt is "+hour+":"+minute+" on day "+realday+" of the year "+realyear);
-        System.out.println("Trammel is in day "+realtrammelday+" of its 9 day phase.");
-        System.out.println("Felucca is in day "+realfeluccaday+" of its 14 day phase.");
-
-        // OUTPUTS
-        // worldTime = 168260271
-        //   It is 9:51 on day 48 of the year 321
-        //   Trammel is in day 1 of its 9 day cycle.
-        //   Felucca is in day 4 of its 14 day cycle.
-
-        //  worldTime = 27364375
-        //  It is 0:55 on day 24 of the year 53
-        //  Trammel is in day 5 of its 9 day phase.
-        //  Felucca is in day 6 of its 14 day phase.
-
-        //  worldTime = 67294091
-        //  It is 0:11 on day 13 of the year 129
-        //  Trammel is in day 5 of its 9 day phase.
-        //  Felucca is in day 1 of its 14 day phase.
-
+    public static void print() {
+        System.out.println("worldTime: " + worldTime);
+        System.out.print("It is " + hour + ":");
+        System.out.printf("%02d ", min);
+        System.out.println("on day " + day + " of the year " + year + ".");
+        System.out.println("Trammel is in day " + trammelcycle + " of its 9 day cycle.");
+        System.out.println("Felucca is in day " + feluccacycle + " of its 14 day cycle.");
     }
 }
